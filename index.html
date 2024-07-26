@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-3E240R4HNN"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'G-3E240R4HNN');
+	</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interactive floating dots with triangles and customizable colour options.">
+    <meta name="keywords" content="interactive, dots, triangles, colour, customisation, animation">
+    <meta name="author" content="ohspiker">
     <title>Constellations - Triangles</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -11,6 +23,10 @@
     <footer>
         <p>@ohspiker 2024</p>
     </footer>
+    <div class="colour-picker">
+        <div id="colourDisplay" class="colour-display"></div>
+        <input type="color" id="colour" name="colour" value="#ffffff">
+    </div>
     <script src="assets/js/index.js"></script>
 </body>
 </html>

@@ -30,3 +30,26 @@ footer {
     padding: 10px 0;
     font-family: Arial, sans-serif;
 }
+
+.colour-picker {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    border: 1px solid #f1f1f1;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+}
+
+.colour-display {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.colour-picker input[type="color"] {
+    display: block;
+}

@@ -1,5 +1,7 @@
 const canvas = document.getElementById('dotCanvas');
 const ctx = canvas.getContext('2d');
+const colourInput = document.getElementById('colour');
+const colourDisplay = document.getElementById('colourDisplay');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -14,6 +16,16 @@ const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 const dots = [];
 const numDots = isMobile ? 30 : 70;  // Fewer dots on mobile
 const dotRadius = 3;
+let colour = '#ffffff';  // Default colour
+
+colourInput.addEventListener('input', (e) => {
+    colour = e.target.value;
+    colourDisplay.style.backgroundColor = colour;
+});
+
+colourDisplay.addEventListener('click', () => {
+    colourInput.click();
+});
 
 for (let i = 0; i < numDots; i++) {
     dots.push({
@@ -39,7 +51,7 @@ function drawDots() {
     dots.forEach(dot => {
         ctx.beginPath();
         ctx.arc(dot.x, dot.y, dotRadius, 0, Math.PI * 2, false);
-        ctx.fillStyle = '#ffffff';
+        ctx.fillStyle = colour;
         ctx.fill();
         ctx.closePath();
     });
@@ -48,7 +60,7 @@ function drawDots() {
 function drawMouseDot() {
     ctx.beginPath();
     ctx.arc(mouse.x, mouse.y, dotRadius, 0, Math.PI * 2, false);
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = colour;
     ctx.fill();
     ctx.closePath();
 }
@@ -70,7 +82,7 @@ function drawTriangles() {
 
                 if (dist1 < maxDistance && dist2 < maxDistance && dist3 < maxDistance) {
                     const averageDist = (dist1 + dist2 + dist3) / 3;
-                    const colorIntensity = 1 - (averageDist / maxDistance);
+                    const colourIntensity = 1 - (averageDist / maxDistance);
 
                     ctx.beginPath();
                     ctx.moveTo(dot1.x, dot1.y);
@@ -79,8 +91,8 @@ function drawTriangles() {
                     ctx.closePath();
 
                     const gradient = ctx.createLinearGradient(dot1.x, dot1.y, dot2.x, dot2.y);
-                    gradient.addColorStop(0, `rgba(255, 255, 255, ${colorIntensity})`);
-                    gradient.addColorStop(1, `rgba(255, 255, 255, ${colorIntensity / 2})`);
+                    gradient.addColorStop(0, `rgba(${hexToRgb(colour)}, ${colourIntensity})`);
+                    gradient.addColorStop(1, `rgba(${hexToRgb(colour)}, ${colourIntensity / 2})`);
                     ctx.fillStyle = gradient;
                     ctx.fill();
                 }
@@ -110,11 +122,19 @@ function drawLines() {
             ctx.moveTo(dot.x, dot.y);
             ctx.lineTo(connection.dot.x, connection.dot.y);
             const opacity = 1 - (connection.distance / maxDistance); // Smoother fade-in effect
-            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+            ctx.strokeStyle = `rgba(${hexToRgb(colour)}, ${opacity})`;
             ctx.stroke();
             ctx.closePath();
         });
     });
+}
+
+function hexToRgb(hex) {
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `${r},${g},${b}`;
 }
 
 function animate() {
