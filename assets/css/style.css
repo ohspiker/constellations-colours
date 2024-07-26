@@ -10,6 +10,7 @@ body, html {
     align-items: center;
     background-color: #1a1a1a;
     font-family: Arial, sans-serif;
+    cursor: none;  /* Hide the mouse cursor */
 }
 
 canvas {

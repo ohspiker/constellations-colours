@@ -70,7 +70,7 @@ function drawTriangles() {
 
                 if (dist1 < maxDistance && dist2 < maxDistance && dist3 < maxDistance) {
                     const averageDist = (dist1 + dist2 + dist3) / 3;
-                    const colorIntensity = 1 - Math.pow(averageDist / maxDistance, 2);
+                    const colorIntensity = 1 - (averageDist / maxDistance);
 
                     ctx.beginPath();
                     ctx.moveTo(dot1.x, dot1.y);
@@ -109,7 +109,7 @@ function drawLines() {
             ctx.beginPath();
             ctx.moveTo(dot.x, dot.y);
             ctx.lineTo(connection.dot.x, connection.dot.y);
-            const opacity = 1 - Math.pow(connection.distance / maxDistance, 2); // Smoother fade-in effect
+            const opacity = 1 - (connection.distance / maxDistance); // Smoother fade-in effect
             ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
             ctx.stroke();
             ctx.closePath();
@@ -121,8 +121,8 @@ function animate() {
     updateDots();
     drawDots();
     drawMouseDot();
-    drawLines();
     drawTriangles();
+    drawLines();
     requestAnimationFrame(animate);
 }
 
